@@ -2,162 +2,166 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Exemplos de Gráficos</title>
+  <title>Gráficos Médios</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
       background: #f0f0f0;
-      padding: 20px;
+      padding: 15px;
     }
+
+    h1 {
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 25px;
+    }
+
     .grafico-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      justify-items: center;
     }
+
     canvas {
       background: #fff;
       border-radius: 10px;
-      padding: 10px;
-      box-shadow: 0 0 10px #ccc;
+      box-shadow: 0 0 8px #aaa;
     }
   </style>
 </head>
 <body>
-  <h1>Exemplos de Gráficos</h1>
+  <h1>Gráficos Médios</h1>
   <div class="grafico-container">
-    <!-- Colunas -->
-    <canvas id="coluna1"></canvas>
-    <canvas id="coluna2"></canvas>
-    
-    <!-- Barras -->
-    <canvas id="barra1"></canvas>
-    <canvas id="barra2"></canvas>
-
-    <!-- Linhas -->
-    <canvas id="linha1"></canvas>
-    <canvas id="linha2"></canvas>
-
-    <!-- Setores (Pizza) -->
-    <canvas id="setor1"></canvas>
-    <canvas id="setor2"></canvas>
+    <canvas id="coluna1" width="200" height="200"></canvas>
+    <canvas id="coluna2" width="200" height="200"></canvas>
+    <canvas id="barra1" width="200" height="200"></canvas>
+    <canvas id="barra2" width="200" height="200"></canvas>
+    <canvas id="linha1" width="200" height="200"></canvas>
+    <canvas id="linha2" width="200" height="200"></canvas>
+    <canvas id="setor1" width="200" height="200"></canvas>
+    <canvas id="setor2" width="200" height="200"></canvas>
   </div>
 
   <script>
-    // Dados genéricos
-    const meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai'];
     const cores = ['#f87171', '#60a5fa', '#34d399', '#fbbf24', '#a78bfa'];
 
-    // Coluna 1: Vendas por mês
-    new Chart(document.getElementById('coluna1'), {
-      type: 'bar',
-      data: {
-        labels: meses,
-        datasets: [{
-          label: 'Vendas (mil R$)',
-          data: [12, 19, 3, 5, 2],
-          backgroundColor: cores
-        }]
-      }
-    });
-
-    // Coluna 2: Produção de fábrica
-    new Chart(document.getElementById('coluna2'), {
-      type: 'bar',
-      data: {
-        labels: ['Fabrica A', 'Fabrica B', 'Fabrica C'],
-        datasets: [{
-          label: 'Unidades Produzidas',
-          data: [300, 450, 380],
-          backgroundColor: ['#60a5fa', '#fbbf24', '#f87171']
-        }]
-      }
-    });
-
-    // Barra 1: Consumo de energia por setor
-    new Chart(document.getElementById('barra1'), {
-      type: 'bar',
-      data: {
-        labels: ['Residencial', 'Industrial', 'Comercial'],
-        datasets: [{
-          label: 'kWh Consumidos',
-          data: [1200, 3000, 1800],
-          backgroundColor: cores,
-        }]
+    const configs = [
+      {
+        id: 'coluna1', type: 'bar',
+        data: {
+          labels: ['Jan', 'Fev', 'Mar'],
+          datasets: [{
+            label: 'Vendas',
+            data: [12, 19, 3],
+            backgroundColor: cores
+          }]
+        }
       },
-      options: {
-        indexAxis: 'y'
-      }
-    });
-
-    // Barra 2: Horas de estudo por matéria
-    new Chart(document.getElementById('barra2'), {
-      type: 'bar',
-      data: {
-        labels: ['Matemática', 'Português', 'História', 'Inglês'],
-        datasets: [{
-          label: 'Horas Semanais',
-          data: [5, 4, 3, 6],
-          backgroundColor: cores
-        }]
+      {
+        id: 'coluna2', type: 'bar',
+        data: {
+          labels: ['A', 'B', 'C'],
+          datasets: [{
+            label: 'Produção',
+            data: [300, 450, 380],
+            backgroundColor: cores
+          }]
+        }
       },
-      options: {
-        indexAxis: 'y'
+      {
+        id: 'barra1', type: 'bar',
+        data: {
+          labels: ['Res.', 'Ind.', 'Com.'],
+          datasets: [{
+            label: 'Consumo',
+            data: [1200, 3000, 1800],
+            backgroundColor: cores
+          }]
+        },
+        options: { indexAxis: 'y' }
+      },
+      {
+        id: 'barra2', type: 'bar',
+        data: {
+          labels: ['Mat', 'Port', 'Ing'],
+          datasets: [{
+            label: 'Estudo',
+            data: [5, 4, 6],
+            backgroundColor: cores
+          }]
+        },
+        options: { indexAxis: 'y' }
+      },
+      {
+        id: 'linha1', type: 'line',
+        data: {
+          labels: ['S', 'T', 'Q'],
+          datasets: [{
+            label: 'Temperatura',
+            data: [22, 24, 21],
+            borderColor: '#f87171',
+            fill: false,
+            tension: 0.3
+          }]
+        }
+      },
+      {
+        id: 'linha2', type: 'line',
+        data: {
+          labels: ['1', '2', '3'],
+          datasets: [{
+            label: 'Seguidores',
+            data: [100, 300, 600],
+            borderColor: '#60a5fa',
+            fill: false,
+            tension: 0.3
+          }]
+        }
+      },
+      {
+        id: 'setor1', type: 'pie',
+        data: {
+          labels: ['Aluguel', 'Comida', 'Lazer'],
+          datasets: [{
+            data: [40, 30, 30],
+            backgroundColor: cores
+          }]
+        }
+      },
+      {
+        id: 'setor2', type: 'pie',
+        data: {
+          labels: ['A', 'B', 'C'],
+          datasets: [{
+            data: [45, 35, 20],
+            backgroundColor: cores
+          }]
+        }
       }
-    });
+    ];
 
-    // Linha 1: Temperatura diária
-    new Chart(document.getElementById('linha1'), {
-      type: 'line',
-      data: {
-        labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex'],
-        datasets: [{
-          label: 'Temperatura (°C)',
-          data: [22, 24, 21, 23, 25],
-          borderColor: '#f87171',
-          fill: false
-        }]
-      }
-    });
-
-    // Linha 2: Crescimento de seguidores
-    new Chart(document.getElementById('linha2'), {
-      type: 'line',
-      data: {
-        labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
-        datasets: [{
-          label: 'Seguidores',
-          data: [100, 300, 600, 1000],
-          borderColor: '#60a5fa',
-          fill: false
-        }]
-      }
-    });
-
-    // Setor 1: Distribuição de gastos
-    new Chart(document.getElementById('setor1'), {
-      type: 'pie',
-      data: {
-        labels: ['Aluguel', 'Alimentação', 'Transporte', 'Lazer'],
-        datasets: [{
-          data: [40, 30, 20, 10],
-          backgroundColor: cores
-        }]
-      }
-    });
-
-    // Setor 2: Participação no mercado
-    new Chart(document.getElementById('setor2'), {
-      type: 'pie',
-      data: {
-        labels: ['Empresa A', 'Empresa B', 'Empresa C'],
-        datasets: [{
-          data: [45, 35, 20],
-          backgroundColor: ['#a78bfa', '#34d399', '#f87171']
-        }]
-      }
+    configs.forEach(cfg => {
+      new Chart(document.getElementById(cfg.id), {
+        type: cfg.type,
+        data: cfg.data,
+        options: {
+          responsive: false,
+          plugins: {
+            legend: { display: true },
+            tooltip: { enabled: true }
+          },
+          scales: cfg.type === 'line' || cfg.type === 'bar'
+            ? {
+                x: { display: true },
+                y: { display: true }
+              }
+            : {},
+          ...cfg.options
+        }
+      });
     });
   </script>
 </body>
 </html>
-
